@@ -3,12 +3,12 @@
 const axios = require('axios');
 
 // Make axios request to log out data from Googles Books API
-const getBooks = async () => {
-  try {
-    return await axios.get('https://www.googleapis.com/books/v1/volumes?q=search+terms')
-  } catch (error) {
-    console.error(error);
-  }
+async function doGetRequest() {
+  let res = await axios.get('https://www.googleapis.com/books/v1/volumes?q=search+terms');
+
+  let data = res.data;
+  console.log(data);
 }
 
 console.log('Hello World');
+doGetRequest();
