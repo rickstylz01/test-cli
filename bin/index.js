@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 
 const axios = require('axios');
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process:stdout
+});
 
 // Make axios request to log out data from Googles Books API
 async function doGetRequest() {
@@ -10,5 +15,10 @@ async function doGetRequest() {
   console.log(data);
 }
 
-console.log('Hello World');
 doGetRequest();
+
+
+// ---------------
+// Get User Input
+// ---------------
+
