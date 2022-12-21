@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const axios = require('axios');
-const prompt = require('prompt');
+const prompt = require('prompt-sync')();
 
 // Make axios request to log out data from Googles Books API
 async function doGetRequest() {
@@ -11,12 +11,13 @@ async function doGetRequest() {
   console.log(data);
 }
 
-doGetRequest();
+//doGetRequest(); - retrieves data from books api
 
 
 // ---------------
 // Get User Input
 // ---------------
-prompt.start();
+let book = prompt('Hello.  What book are you looking for?');
+console.log(book);
 
 // Get a keyword or string from the user:
