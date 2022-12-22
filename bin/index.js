@@ -1,23 +1,25 @@
 #!/usr/bin/env node
-
+require('dotenv').config();
 const axios = require('axios');
 const prompt = require('prompt-sync')();
+const apiKey = process.env.BOOKS_API_KEY;
+
+// ---------------
+// Get User Input
+// ---------------
+let keyword = prompt('Search for a book: ');
+console.log(book);
+
 
 // Make axios request to log out data from Googles Books API
 async function doGetRequest() {
-  let res = await axios.get('https://www.googleapis.com/books/v1/volumes?q=search-terms&key=your-API-key');
+  let res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}&key=${apiKey}`);
 
   let data = res.data;
   console.log(data);
 }
 
-// doGetRequest();
+doGetRequest();
 
 
-// ---------------
-// Get User Input
-// ---------------
-let book = prompt('Hello.  What book are you looking for?: ');
-console.log(book);
 
-// Get a keyword or string from the user:
