@@ -19,6 +19,7 @@ async function searchForBooks() {
     );
     const data = res.data;
     printSearchResults(data);
+    await saveBookToReadingList();
   } catch (error) {
     console.error(`Sorry that book shows no results: ${error}`);
   }
@@ -46,4 +47,3 @@ const saveBookToReadingList = () => {
 
 
 searchForBooks();
-// saveBookToReadingList();
