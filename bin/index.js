@@ -21,24 +21,37 @@ async function doGetRequest() {
     );
 
     let data = res.data;
-    let bookInfo = data.items.forEach(book => {
+    data.items.forEach(book => {
       console.log(`
      Title: ${book.volumeInfo.title}
      Author(s): ${book.volumeInfo.authors}
      Publisher: ${book.volumeInfo.publisher}
-     
+
      ID: ${book.id}
      ----------------------------------------------
-     `)
+     `);
     })
-
-
+    saveBookToReadingList();
   } catch (error) {
     console.error(error);
   }
 }
 
+
+
+// Create a collection for the user to save books
+const saveBookToReadingList = async () => {
+  try {
+    const readingList = [];
+    const bookId = prompt('Enter the ID of the book you\'d like to save: ');
+    console.log(bookId);
+  } catch (error) {
+    console.error(
+      `Sorry, there has been an error. ${error}`
+    );
+  }
+};
+
+
 doGetRequest();
-
-
-
+// saveBookToReadingList();
