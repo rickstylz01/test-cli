@@ -19,10 +19,22 @@ async function searchForBooks() {
     );
     const data = res.data;
     printSearchResults(data);
-    await saveBookToReadingList();
   } catch (error) {
     console.error(`Sorry that book shows no results: ${error}`);
   }
+}
+
+// Create a collection for the user to save books
+async function searchForBooksUsingId() {
+  const bookId = prompt('Enter the ID of the book you\'d like to save: ');
+  // Axios request for a specific book using the book ID
+  const specificBook = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
+  formatData(specificBook);
+}
+
+function formatData(book) {
+  const bookData = `\nTitle: ${book.data.volumeInfo.title}\nAuthor(s): ${book.data.volumeInfo.author}\nPublisher: ${book.data.volumeInfo.publisher}\n`;
+  console.log(bookData);
 }
 
 const printSearchResults = data => {
@@ -36,14 +48,8 @@ const printSearchResults = data => {
      ----------------------------------------------
      `);
   })
+  searchForBooksUsingId()
 };
-
-// Create a collection for the user to save books
-const saveBookToReadingList = () => {
-  const readingList = [];
-  const bookId = prompt('Enter the ID of the book you\'d like to save: ');
-  console.log(bookId);
-};
-
 
 searchForBooks();
+// searchForBooksUsingId();
