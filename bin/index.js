@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const axios = require('axios');
 const prompt = require('prompt-sync')();
+const fs = require('fs');
 
 // Get User Input
 let keyword = prompt('Search for a book: ');
@@ -32,7 +33,7 @@ const printListOfBooks = data => {
      ----------------------------------------------
      `);
   })
-  // searchBookById()
+  searchBookById()
 };
 
 // Create a collection for the user to save books
@@ -40,18 +41,38 @@ async function searchBookById() {
   const bookId = prompt('Enter the ID of a book you\'d like to save: ');
   // Axios request to find a specific book using the book ID
   const specificBook = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
-  formatData(specificBook);
+  const formattedBook = formatData(specificBook);
+  createAndSaveReadingList(formattedBook);
 }
 
+function createAndSaveReadingList(bookToSave) {
+  fs.appendFile('reading-list.txt', bookToSave, err => {
+    if (err) throw err;
+    console.log(`Saved!`);
+  })
+  openReadingList();
+};
+
 function formatData(book) {
-  // const bookData = `\nTitle: ${book.data.volumeInfo.title}\nAuthor(s): ${book.data.volumeInfo.author}\nPublisher: ${book.data.volumeInfo.publisher}\n`;
-  const bookData = `
+  return `
     Title: ${book.data.volumeInfo.title}
     Author(s): ${book.data.volumeInfo.authors}
     Publisher: ${book.data.volumeInfo.publisher} 
     ----------------------------------------------
   `;
-  console.log(bookData);
 }
+
+// Open file to see reading list
+const openReadingList = async () => {
+  await fs.readFile('reading-list.txt', 'utf8',    (err, list) => {
+    if (err) {
+      console.error(`There was an issue finding your list\n${err}`)
+    } else if (!list) {
+      console.log('Your reading list is empty.');
+    } else {
+      console.log(`Your reading list:\n--------------------------------------------\n\n${list}`);
+    }
+  });
+};
 
 searchForBooks();

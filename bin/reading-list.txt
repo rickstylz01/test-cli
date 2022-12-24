@@ -1,0 +1,30 @@
+    Title: The Alchemist
+    Author(s): Paulo Coelho
+    Publisher: Thorsons
+    ----------------------------------------------
+
+    Title: Black Panther The Young Prince
+    Author(s): Ronald L. Smith
+    Publisher: Marvel Press
+    ----------------------------------------------
+
+    Title: I Got This
+    Author(s): Laurie Hernandez
+    Publisher: HarperCollins
+    ----------------------------------------------
+
+    Title: Nodejs Programming By Example
+    Author(s): Agus Kurniawan
+    Publisher: PE Press
+    ----------------------------------------------
+
+    Title: Coding with JavaScript For Dummies
+    Author(s): Chris Minnick,Eva Holland
+    Publisher: John Wiley & Sons 
+    ----------------------------------------------
+  
+    Title: Efficient Linux at the Command Line
+    Author(s): Daniel Barrett
+    Publisher: "O'Reilly Media, Inc." 
+    ----------------------------------------------
+  
