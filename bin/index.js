@@ -25,7 +25,7 @@ async function searchForBooks() {
 }
 
 // Create a collection for the user to save books
-async function searchForBooksUsingId() {
+async function searchForBookUsingId() {
   const bookId = prompt('Enter the ID of the book you\'d like to save: ');
   // Axios request for a specific book using the book ID
   const specificBook = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
@@ -48,7 +48,7 @@ const printSearchResults = data => {
      ----------------------------------------------
      `);
   })
-  searchForBooksUsingId()
+  searchForBookUsingId()
 };
 
 searchForBooks();
