@@ -1,107 +1,31 @@
 #!/usr/bin/env node
-const axios = require('axios');
-const prompt = require('prompt-sync')();
-const fs = require('fs');
-// const [,, ...args] = process.argv;
+const yargs = require('yargs');
 
+const argv = yargs
+  .command('search', 'Search Google\'s API for a book', {
+    book: {
+      description: 'search for a book',
+      alias: 's',
+      type: 'string'
+    }
+  })
+  .help()
+  .alias('help', 'h').argv;
 
-const myArgs = process.argv.slice(2)
-
-// console.log(`command: ${myArgs}`);
-
-switch (myArgs[0]) {
+const userCommand = argv._[0];
+switch (userCommand) {
   case 'search':
-    console.log(`You chose to ${myArgs[0]}`);
+    console.log('You chose to search for a book');
     break;
   case 'save':
-    console.log(`You chose to ${myArgs[0]}`);
+    console.log('You chose to save a book');
     break;
-  case 'view':
-    console.log(`You chose to ${myArgs[0]}`);
+  case 'list':
+    console.log('You chose to print your reading list');
     break;
   default:
-    console.log('Sorry, that is not something I know how to do.');
+    console.log('this is not a leap year')
 }
 
 
-
-
-
-
-
-
-
-//================================================================================
-// Get User Input
-// let keyword = prompt('Search for a book: ');
-
-// Make axios request to log out data from Googles Books API
-async function searchForBooks() {
-  try {
-    if (keyword === "" || keyword === undefined) {
-      console.log('Please enter a book request.')
-    }
-    let res = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=5&printType=books&projection=lite`
-    );
-    const data = res.data;
-    printListOfBooks(data);
-  } catch (error) {
-    console.error(`Sorry that book shows no results: ${error}`);
-  }
-}
-
-const printListOfBooks = data => {
-  data.items.forEach(book => {
-    console.log(`
-     Title: ${book.volumeInfo.title}
-     Author(s): ${book.volumeInfo.authors}
-     Publisher: ${book.volumeInfo.publisher}
-
-     ID: ${book.id}
-     ----------------------------------------------
-     `);
-  })
-  searchBookById()
-};
-
-// Create a collection for the user to save books
-async function searchBookById() {
-  const bookId = prompt('Enter the ID of a book you\'d like to save: ');
-  // Axios request to find a specific book using the book ID
-  const specificBook = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
-  const formattedBook = formatData(specificBook);
-  createAndSaveReadingList(formattedBook);
-}
-
-function createAndSaveReadingList(bookToSave) {
-  fs.appendFile('reading-list.txt', bookToSave, err => {
-    if (err) throw err;
-    console.log(`Saved!`);
-  })
-  openReadingList();
-};
-
-function formatData(book) {
-  return `
-    Title: ${book.data.volumeInfo.title}
-    Author(s): ${book.data.volumeInfo.authors}
-    Publisher: ${book.data.volumeInfo.publisher} 
-    ----------------------------------------------
-  `;
-}
-
-// Open file to see reading list
-const openReadingList = async () => {
-  await fs.readFile('reading-list.txt', 'utf8',    (err, list) => {
-    if (err) {
-      console.error(`There was an issue finding your list\n${err}`)
-    } else if (!list) {
-      console.log('Your reading list is empty.');
-    } else {
-      console.log(`Your reading list:\n--------------------------------------------\n\n${list}`);
-    }
-  });
-};
-
-// searchForBooks();
+// console.log(argv);
