@@ -2,11 +2,26 @@
 const axios = require('axios');
 const prompt = require('prompt-sync')();
 const fs = require('fs');
-const [,, ...args] = process.argv;
-
-console.log(`Hello World ${args}`);
+// const [,, ...args] = process.argv;
 
 
+const myArgs = process.argv.slice(2)
+
+// console.log(`command: ${myArgs}`);
+
+switch (myArgs[0]) {
+  case 'search':
+    console.log(`You chose to ${myArgs[0]}`);
+    break;
+  case 'save':
+    console.log(`You chose to ${myArgs[0]}`);
+    break;
+  case 'view':
+    console.log(`You chose to ${myArgs[0]}`);
+    break;
+  default:
+    console.log('Sorry, that is not something I know how to do.');
+}
 
 
 
@@ -15,6 +30,8 @@ console.log(`Hello World ${args}`);
 
 
 
+
+//================================================================================
 // Get User Input
 // let keyword = prompt('Search for a book: ');
 
