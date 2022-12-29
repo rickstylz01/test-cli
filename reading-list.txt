@@ -13,3 +13,14 @@
     Author(s): J.K. Rowling
     Publisher: Pottermore Publishing
     ----------------------------------------------
+
+    Title: The Rubik's Cube Book
+    Author(s): Kube Magic
+    Publisher: Independently Published 
+    ----------------------------------------------
+  
+    Title: French Provincial Cooking
+    Author(s): Elizabeth David
+    Publisher: Penguin 
+    ----------------------------------------------
+  

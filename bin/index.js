@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
 const searchBook = require('../utils/searchBookByKeyword');
-const saveBook = require('../utils/searchBookById');
+const saveBook = require('../utils/addBookToReadingList');
 const printReadingList = require('../utils/printReadingList');
 
 
@@ -17,7 +17,7 @@ yargs.command({
     }
   },
   handler: function (argv) {
-    searchBook(argv.keyword).then(response => console.log(response));
+    searchBook(argv.keyword);
   }
 })
 
@@ -33,7 +33,7 @@ yargs.command({
     }
   },
   handler: function (argv) {
-    saveBook(argv.bookId).then(response => console.log(response));
+    saveBook(argv.bookId);
   }
 })
 
