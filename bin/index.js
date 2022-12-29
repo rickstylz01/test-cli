@@ -5,8 +5,15 @@ const yargs = require('yargs');
 yargs.command({
   command: 'search',
   describe: 'Search for a book',
-  handler: function () {
-    console.log('You chose to search for a book')
+  builder: {
+    keyword: {
+      describe: 'Book query string',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler: function (argv) {
+    console.log(`You searched for: ${argv.keyword}`);
   }
 })
 // Create save command
@@ -25,6 +32,7 @@ yargs.command({
     console.log('You chose to print your reading list!')
   }
 })
+  .help()
 
 yargs.parse();
 
