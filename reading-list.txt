@@ -1,16 +1,15 @@
 
     Title: The Secret of The Alchemist
     Author(s): Colm Holland
-    Publisher: John Hunt Publishing 
+    Publisher: John Hunt Publishing
     ----------------------------------------------
-  
+
     Title: Node.js in Practice
     Author(s): Marc Harter,Alex Young
-    Publisher: Simon and Schuster 
+    Publisher: Simon and Schuster
     ----------------------------------------------
-  
+
     Title: Harry Potter: The Complete Collection (1-7)
     Author(s): J.K. Rowling
-    Publisher: Pottermore Publishing 
+    Publisher: Pottermore Publishing
     ----------------------------------------------
-  

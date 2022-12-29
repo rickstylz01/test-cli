@@ -1,5 +1,5 @@
 const axios = require("axios");
-const utilities = require('../utils/controllers');
+const printBookList = require('../utils/printBookList');
 
 module.exports = async (keyword) => {
   try {
@@ -10,7 +10,7 @@ module.exports = async (keyword) => {
       `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=5&printType=books&projection=lite`
     );
     const data = res.data;
-    utilities.printListOfBooks(data);
+    printBookList(data);
   } catch (error) {
     console.error(`Sorry that book shows no results: ${error}`);
   }

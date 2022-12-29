@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
-const searchCommand = require('../utils/searchBookByKeyword');
+const searchBook = require('../utils/searchBookByKeyword');
+const saveBook = require('../utils/searchBookById');
+const printReadingList = require('../utils/printReadingList');
+
 
 // Create search command
 yargs.command({
@@ -14,44 +17,34 @@ yargs.command({
     }
   },
   handler: function (argv) {
-    searchCommand(argv.keyword).then(response => console.log(response));
+    searchBook(argv.keyword).then(response => console.log(response));
   }
 })
+
 // Create save command
 yargs.command({
   command: 'save',
   describe: 'Save a book to your reading list',
-  handler: function () {
-    console.log('You chose to save a book!')
+  builder: {
+    bookId: {
+      describe: 'Id for the book you\'d like to save',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler: function (argv) {
+    saveBook(argv.bookId).then(response => console.log(response));
   }
 })
+
 // Create a list command
 yargs.command({
   command: 'list',
   describe: 'Print your reading list',
   handler: function () {
-    console.log('You chose to print your reading list!')
+    printReadingList();
   }
 })
   .help()
 
 yargs.parse();
-
-
-// const userCommand = argv._[0];
-// switch (userCommand) {
-//   case 'search':
-//     console.log('You chose to search for a book');
-//     break;
-//   case 'save':
-//     console.log('You chose to save a book');
-//     break;
-//   case 'list':
-//     console.log('You chose to print your reading list');
-//     break;
-//   default:
-//     console.log('this is not a leap year')
-// }
-
-
-// console.log(argv);
