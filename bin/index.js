@@ -1,78 +1,50 @@
 #!/usr/bin/env node
-const axios = require('axios');
-const prompt = require('prompt-sync')();
-const fs = require('fs');
+const yargs = require('yargs');
+const searchBook = require('../utils/searchBookByKeyword');
+const saveBook = require('../utils/addBookToReadingList');
+const printReadingList = require('../utils/printReadingList');
 
-// Get User Input
-let keyword = prompt('Search for a book: ');
 
-// Make axios request to log out data from Googles Books API
-async function searchForBooks() {
-  try {
-    if (keyword === "" || keyword === undefined) {
-      console.log('Please enter a book request.')
+// Create search command
+yargs.command({
+  command: 'search',
+  describe: 'Search for a book',
+  builder: {
+    keyword: {
+      describe: 'Book query string',
+      demandOption: true,
+      type: 'string'
     }
-    let res = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=5&printType=books&projection=lite`
-    );
-    const data = res.data;
-    printListOfBooks(data);
-  } catch (error) {
-    console.error(`Sorry that book shows no results: ${error}`);
+  },
+  handler: function (argv) {
+    searchBook(argv.keyword);
   }
-}
+})
 
-const printListOfBooks = data => {
-  data.items.forEach(book => {
-    console.log(`
-     Title: ${book.volumeInfo.title}
-     Author(s): ${book.volumeInfo.authors}
-     Publisher: ${book.volumeInfo.publisher}
-
-     ID: ${book.id}
-     ----------------------------------------------
-     `);
-  })
-  searchBookById()
-};
-
-// Create a collection for the user to save books
-async function searchBookById() {
-  const bookId = prompt('Enter the ID of a book you\'d like to save: ');
-  // Axios request to find a specific book using the book ID
-  const specificBook = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
-  const formattedBook = formatData(specificBook);
-  createAndSaveReadingList(formattedBook);
-}
-
-function createAndSaveReadingList(bookToSave) {
-  fs.appendFile('reading-list.txt', bookToSave, err => {
-    if (err) throw err;
-    console.log(`Saved!`);
-  })
-  openReadingList();
-};
-
-function formatData(book) {
-  return `
-    Title: ${book.data.volumeInfo.title}
-    Author(s): ${book.data.volumeInfo.authors}
-    Publisher: ${book.data.volumeInfo.publisher} 
-    ----------------------------------------------
-  `;
-}
-
-// Open file to see reading list
-const openReadingList = async () => {
-  await fs.readFile('reading-list.txt', 'utf8',    (err, list) => {
-    if (err) {
-      console.error(`There was an issue finding your list\n${err}`)
-    } else if (!list) {
-      console.log('Your reading list is empty.');
-    } else {
-      console.log(`Your reading list:\n--------------------------------------------\n\n${list}`);
+// Create save command
+yargs.command({
+  command: 'save',
+  describe: 'Save a book to your reading list',
+  builder: {
+    bookId: {
+      describe: 'Id for the book you\'d like to save',
+      demandOption: true,
+      type: 'string'
     }
-  });
-};
+  },
+  handler: function (argv) {
+    saveBook(argv.bookId);
+  }
+})
 
-searchForBooks();
+// Create a list command
+yargs.command({
+  command: 'list',
+  describe: 'Print your reading list',
+  handler: function () {
+    printReadingList();
+  }
+})
+  .help()
+
+yargs.parse();
