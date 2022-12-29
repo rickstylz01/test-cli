@@ -6,36 +6,7 @@ const axios = require("axios");
 const fs = require("fs");
 const prompt = require('prompt-sync')();
 
-
-module.exports = async keyword => {
-  try {
-    let res = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=5&printType=books&projection=lite`
-    );
-
-    return res.data;
-  } catch (error) {
-    console.error(`Something went wrong: ${error}`);
-  }
-}
-
-
-async function searchForBooks() {
-  try {
-    if (keyword === "" || keyword === undefined) {
-      console.log('Please enter a book request.')
-    }
-    let res = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=5&printType=books&projection=lite`
-    );
-    const data = res.data;
-    printListOfBooks(data);
-  } catch (error) {
-    console.error(`Sorry that book shows no results: ${error}`);
-  }
-}
-
-const printListOfBooks = data => {
+exports.printListOfBooks = data => {
   data.items.forEach(book => {
     console.log(`
      Title: ${book.volumeInfo.title}

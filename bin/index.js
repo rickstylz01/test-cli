@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
+const searchCommand = require('../utils/searchBookByKeyword');
 
 // Create search command
 yargs.command({
@@ -13,7 +14,7 @@ yargs.command({
     }
   },
   handler: function (argv) {
-    console.log(`You searched for: ${argv.keyword}`);
+    searchCommand(argv.keyword).then(response => console.log(response));
   }
 })
 // Create save command
