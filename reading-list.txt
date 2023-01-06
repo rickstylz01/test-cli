@@ -24,3 +24,8 @@
     Publisher: Penguin 
     ----------------------------------------------
   
+    Title: Make a TikTok Every Day
+    Author(s): Dave Jorgenson
+    Publisher: National Geographic Books 
+    ----------------------------------------------
+  
