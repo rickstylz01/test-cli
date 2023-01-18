@@ -29,3 +29,8 @@
     Publisher: National Geographic Books 
     ----------------------------------------------
   
+    Title: Machines that Think
+    Author(s): Toby Walsh
+    Publisher: Prometheus Books 
+    ----------------------------------------------
+  
